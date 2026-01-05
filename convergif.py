@@ -3,7 +3,7 @@ from moviepy import VideoFileClip
 def convertir_video(input_path, output_path, fps_value, width_value):
     video = VideoFileClip(input_path)
     video.resized(width=width_value)
-    video.write_gifgiu(output_path, fps=fps_value)
+    video.write_gif(output_path, fps=fps_value)
     print(f"¡Éxito! GIF guardado en: {output_path}")
 if __name__ == "__main__":
     #1.Crear el parser
