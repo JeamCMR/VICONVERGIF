@@ -1,9 +1,21 @@
 import argparse
 from moviepy import VideoFileClip
+from PIL import Image, ImageSequence
 def convertir_video(input_path, output_path, fps_value, width_value):
     video = VideoFileClip(input_path)
     video.resized(width=width_value)
     video.write_gif(output_path, fps=fps_value)
+    with Image.open(output_path) as img:
+        #Extraemos todos los fotogramas después del primero
+        frames = [f.copy() for f in ImageSequence.Iterator(img)]
+        # Guardamos el primer frame (frames[0]) y añadimos el resto
+        frames[0].save(
+            output_path,
+            save_all=True,
+            append_images=frames[1:],
+            optimize=True,
+            loop=0
+    )
     print(f"¡Éxito! GIF guardado en: {output_path}")
 if __name__ == "__main__":
     #1.Crear el parser
